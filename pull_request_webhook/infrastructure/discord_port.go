@@ -13,7 +13,7 @@ func post_discord(msg string) int {
 	discord_webhook_url := os.Getenv("DISCORD_WEBHOOK_URL")
 
 	if discord_webhook_url == "" {
-		log.Println("Error: el link hacia discord no existe")
+		log.Println("Error: el link hacia discord no existe o no se encuentra")
 		return 500
 	}
 
