@@ -33,7 +33,7 @@ jobs:
       run: go test -v ./main.go
     - name: send message to Discord
       run: |
-        curl -X POST "https://235f-2806-2f0-8181-feaf-a927-a5f1-acc0-18e8.ngrok-free.app/github/webhook" \
+        curl -X POST "https://894c-2806-2f0-8181-feaf-a927-a5f1-acc0-18e8.ngrok-free.app/github/webhook" \
            -H "Content-Type: application/json" \
            -H "X-GitHub-Event: workflow_run" \
            -H "X-GitHub-Delivery: ${{ github.run_id }}" \
