@@ -8,6 +8,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_run:
+    workflows: [ "Go Workflow" ]
+    types:
+      - completed
 
 jobs:
   build:
@@ -29,8 +33,19 @@ jobs:
       run: go test -v ./main.go
     - name: send message to Discord
       run: |
-        curl -H "Content-Type: application/json" \
-               -X POST \
-               -d "{\"content\": \"Nuevo push en el repositorio por ${{ github.actor }}: ${{ github.event.head_commit.message }} en el repositorio ${{github.repository}}\"}" \
-               "${{ env.Discord}}"
-        echo "Repositorio: $GITHUB_REPOSITORY"
+        curl -X POST "https://235f-2806-2f0-8181-feaf-a927-a5f1-acc0-18e8.ngrok-free.app/github/webhook" \
+           -H "Content-Type: application/json" \
+           -H "X-GitHub-Event: workflow_run" \
+           -H "X-GitHub-Delivery: ${{ github.run_id }}" \
+           -d '{
+             "action": "${{ github.event.action }}",
+             "workflow_run": {
+               "name": "${{ github.workflow }}",
+               "url": "${{ github.event.workflow_run.url }}",
+               "conclusion": "${{ github.event.workflow_run.conclusion }}",
+               "html_url": "${{ github.event.workflow_run.html_url }}"
+             },
+             "repository": {
+               "full_name": "${{ github.repository }}"
+             }
+           }'
