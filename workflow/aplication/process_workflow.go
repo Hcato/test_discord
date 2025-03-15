@@ -2,7 +2,7 @@ package application
 
 import (
 	"encoding/json"
-	"github/Workflow/domain/value"
+	"github/workflow/domain/value"
 	"log"
 )
 
