@@ -1,4 +1,8 @@
+este es un mensaje desde la rama test, increible, waos, espectacular.
 este es un mensaje desde la rama test, ahora sixd
 este es un mensaje desde la rama test, increible, waos
 holi
+<<<<<<< HEAD
 testing
+=======
+>>>>>>> 23c909923b947b9bcdbc570afcdbaf75829373c2
