@@ -2,6 +2,7 @@ package main
 
 import (
 	"github/pull_request_webhook/infrastructure"
+	"github/workflow/infraestructure"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,7 @@ func main() {
 	engine := gin.Default()
 
 	infrastructure.Routes(engine)
+	infraestructure.Routes(engine)
 
 	engine.Run(":" + port)
 
