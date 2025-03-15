@@ -1,13 +1,13 @@
-package aplication
+package application
 
 import (
 	"encoding/json"
-	value_objects "github/Workflow/domain"
+	"github/Workflow/domain/value"
 	"log"
 )
 
 func ProcessWorkflowEvent(rawData []byte) string {
-	var eventPayload value_objects.WorkflowRunEvent
+	var eventPayload value.WorkflowRunEvent
 
 	if err := json.Unmarshal(rawData, &eventPayload); err != nil {
 		log.Println("Error al deserializar payload de Actions")
@@ -27,7 +27,7 @@ func ProcessWorkflowEvent(rawData []byte) string {
 		eventPayload.WorkflowRun.Conclusion = "Desconocido"
 	}
 
-	return SendMessageToDiscord(
+	return GenerateMessageToDiscordForActions(
 		eventPayload.Action,
 		eventPayload.WorkflowRun.Name,
 		eventPayload.WorkflowRun.Conclusion,

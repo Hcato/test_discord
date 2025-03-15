@@ -1,4 +1,4 @@
-package value_objects
+package value
 
 type WorkflowRunEvent struct {
 	Action      string      `json:"action"`

@@ -1,7 +1,7 @@
 package infraestructure
 
 import (
-	"github/workflow/aplication"
+	application "github/workflow/aplication"
 	"log"
 	"net/http"
 
@@ -27,7 +27,7 @@ func HandleGitHubEvents(ctx *gin.Context) {
 	case "ping":
 		ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 	case "workflow_run":
-		message := aplication.ProcessWorkflowEvent(rawData)
+		message := application.ProcessWorkflowEvent(rawData)
 		if message == "ERROR" {
 			statusCode = 500
 		} else {

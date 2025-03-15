@@ -1,32 +1,35 @@
-package aplication
+package application
 
 import "fmt"
 
-func SendMessageToDiscord(action, workflow, status, url, repository string) string {
-	var message string
+func GenerateMessageToDiscordForActions(action, workflow, conclusion, repoFullName, url string) string {
+	var mensaje string
+
 	if action == "" {
-		action = "no se encontro"
+		action = "Desconocido"
 	}
 	if workflow == "" {
-		workflow = "no se encontro"
+		workflow = "Desconocido"
 	}
-	if status == "" {
-		status = "desconocido"
+	if conclusion == "" {
+		conclusion = "Desconocido"
 	}
+
 	switch action {
-	case "complete":
-		if status == "success" {
-			message = "se ha enviado el mensaje con exito"
-		} else if status == "failed" {
-			message = "no se pudo enviar el mensaje"
+	case "completed":
+		if conclusion == "success" {
+			mensaje = "Workflow completado con éxito"
+		} else if conclusion == "failure" {
+			mensaje = "Workflow fallido"
 		} else {
-			message = fmt.Sprintf("error con del workflow: %s", status)
+			mensaje = fmt.Sprintf("Workflow con estado: %s", conclusion)
 		}
 	case "requested":
-		message = "workflow iniciado"
+		mensaje = "Workflow iniciado"
 	default:
-		message = fmt.Sprintf("Evento: %s", action)
+		mensaje = fmt.Sprintf("Evento de workflow: %s", action)
 	}
+
 	return fmt.Sprintf("%s en el repositorio %s\nWorkflow: %s\nDetalles: %s\n\n---\n",
-		message, repository, workflow, url)
+		mensaje, repoFullName, workflow, url)
 }
